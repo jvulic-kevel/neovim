@@ -1,24 +1,7 @@
 -- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
--- Customize Mason
-
 ---@type LazySpec
 return {
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      -- Mason builds the binaries to use and prepends the path to
-      -- include its bin directory. However, some binaries will not
-      -- work without being patched (for example, lua) and so we
-      -- actually append and install the related packages where we
-      -- can via nix, falling back on mason only when not present.
-      PATH = "append",
-    },
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    enabled = false,
-  },
   {
     "williamboman/mason-lspconfig.nvim",
     opts = function(_, opts)
@@ -30,20 +13,6 @@ return {
         "yamlls",
         "buf_ls",
       })
-
-      -- Intercept and sanitize invalid entries that might be added by
-      -- community packs.
-      local clean_installed = {}
-      for _, server in ipairs(opts.ensure_installed or {}) do
-        if server == "volar" then
-          -- "volar" waswofficially renamed to "vue_ls" in modern
-          -- mason-lspconfig versions.
-          table.insert(clean_installed, "vue_ls")
-        elseif server ~= "docker-language-server" then
-          table.insert(clean_installed, server)
-        end
-      end
-      opts.ensure_installed = clean_installed
     end,
   },
   {
@@ -59,26 +28,4 @@ return {
       })
     end,
   },
-  -- use mason-tool-installer for automatically installing Mason packages
-  -- {
-  --   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  --   -- overrides `require("mason-tool-installer").setup(...)`
-  --   enabled = false,
-  --   opts = {
-  --     -- Make sure to use the names found in `:Mason`
-  --     ensure_installed = {
-  --       -- install language servers
-  --       "lua-language-server",
-  --
-  --       -- install formatters
-  --       "stylua",
-  --
-  --       -- install debuggers
-  --       "debugpy",
-  --
-  --       -- install any other package
-  --       "tree-sitter-cli",
-  --     },
-  --   },
-  -- },
 }
