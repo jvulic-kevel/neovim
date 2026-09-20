@@ -9,6 +9,9 @@ return {
     -- opts variable is the default configuration table for the setup function call
     -- local null_ls = require "null-ls"
 
+    -- Redirect temporary files globally to /tmp to avoid workspace clutter.
+    opts.temp_dir = "/tmp"
+
     -- Check supported formatters and linters
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
