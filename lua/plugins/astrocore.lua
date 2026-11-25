@@ -35,6 +35,7 @@ return {
         guifont = { "NotoMono Nerd Font", ":h11" }, -- search with :set guifont=*
         listchars = { space = "·", nbsp = "c", precedes = "«", extends = "»", eol = "↲", tab = "▸-" },
         scrolloff = 999, -- keep cursor centered
+        timeoutlen = 300, -- ms to wait for a mapped sequence, e.g. <esc><esc>
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -87,9 +88,8 @@ return {
       },
       v = {},
       t = {
-        -- setting a mapping to false will disable it
-        -- ["<esc>"] = false,
-        ["<esc>"] = { "<C-\\><C-n>", desc = "Switch to normal mode" },
+        -- single <esc> passes through to the TUI; double <esc> leaves terminal mode
+        ["<esc><esc>"] = { "<C-\\><C-n>", desc = "Switch to normal mode" },
       },
       i = {
         ["<C-h>"] = { "<C-W>", desc = "Delete word with backspace" },
